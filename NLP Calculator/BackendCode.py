@@ -1,6 +1,7 @@
 from KeywordsList import *
 from EvaluationCode import *
 from word2number import w2n
+from num2words import *
 import spacy
 nlp = spacy.load('en_core_web_sm')
 
@@ -38,6 +39,15 @@ def numberQuery(tokenizedQuery):
   numberedQuery = []
   currentNumber = str()
   countNumber = 0
+  
+  for i, token in enumerate(tokenizedQuery):
+    if token[0] == 'point':
+      if not set(numbers).isdisjoint(set(tokenizedQuery[i-1][0])):
+        tokenizedQuery[i-1][0] = num2words(w2n.word_to_num(tokenizedQuery[i-1][0]))
+		
+      if not set(numbers).isdisjoint(set(tokenizedQuery[i+1][0])):	  
+        tokenizedQuery[i+1][0] = num2words(w2n.word_to_num(tokenizedQuery[i+1][0]))		
+		
   for token in tokenizedQuery:
     if not token[1] == 'CD':
       if currentNumber != "":
@@ -47,6 +57,9 @@ def numberQuery(tokenizedQuery):
       numberedQuery.append(token)
     else:
       countNumber = countNumber + 1
+      if '.' in token[0]:
+        token[0] = num2words(token[0])
+        print(token[0])
       if countNumber > 1:
         currentNumber = currentNumber + " " + token[0]
       else:
