@@ -59,7 +59,6 @@ def numberQuery(tokenizedQuery):
       countNumber = countNumber + 1
       if '.' in token[0]:
         token[0] = num2words(token[0])
-        print(token[0])
       if countNumber > 1:
         currentNumber = currentNumber + " " + token[0]
       else:
