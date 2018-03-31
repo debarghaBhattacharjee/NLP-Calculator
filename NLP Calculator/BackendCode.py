@@ -26,7 +26,9 @@ def tokenizeQuery(query):
     elif token.tag_ == 'LS':
       tokenizedQuery.append([token.text, 'CD'])
     elif token.text == 'point' or token.text == '.':
-      tokenizedQuery.append(['point', 'CD'])	  
+      tokenizedQuery.append(['point', 'CD'])
+    elif token.text == ',':
+      tokenizedQuery.append(['and', 'CC'])	  
     else:	
       tokenizedQuery.append([token.text, token.tag_])
   print("\n")
