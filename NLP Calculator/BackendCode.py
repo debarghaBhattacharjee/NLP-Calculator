@@ -94,14 +94,18 @@ def symbolizeQuery(numberedQuery):
 	
 
   for i, token in enumerate(symbolizedQuery):
+    print(i, symbolizedQuery[i])
     if token[0] in markedConjunctions:
       if symbolizedQuery[i-1][0] in markedSymbols:
         del symbolizedQuery[i]
-    elif token[0] in ['-', 'minus']:
-      if symbolizedQuery[i-1][1] != 'CD':
+
+  for i, token in enumerate(symbolizedQuery):
+    if symbolizedQuery[i][0] in ['-', 'minus']:
+      if i == 0 or symbolizedQuery[i-1][1] != 'CD':
         if symbolizedQuery[i+1][1] == 'CD':
           symbolizedQuery[i+1][0] = 0 - symbolizedQuery[i+1][0]
           del symbolizedQuery[i]
+		  
   print("\n")
   print("-----------------------------------------SYMBOLIZED QUERY---------------------------------------")
   print(symbolizedQuery)
@@ -151,8 +155,7 @@ def modifySymbolizedQuery(symbolizedQuery):
             symbolizedQuery.insert(i-1, ['of', 'IN'])
             symbolizedQuery.insert(i-1, [selectedOperator,'SYM'])
             symbolizedQuery.insert(i+2, ['and','CC'])
-
-          print("L" + str(loop) + ": " + str(symbolizedQuery)) 			
+		
 		  
         elif (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'SYM'):
           if precedence[selectedOperator] > precedence[highOperator1]: 
