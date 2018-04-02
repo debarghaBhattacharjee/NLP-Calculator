@@ -92,9 +92,14 @@ def symbolizeQuery(numberedQuery):
       symbolizedQuery.append(token)
     flag = 0
 	
+
   for i, token in enumerate(symbolizedQuery):
     if token[0] in markedConjunctions:
       if symbolizedQuery[i-1][0] in markedSymbols:
+        del symbolizedQuery[i]
+    elif token[0] in ['-', 'minus']:
+      if symbolizedQuery[i-1][1] != 'CD':
+        symbolizedQuery[i+1][0] = 0 - symbolizedQuery[i+1][0]
         del symbolizedQuery[i]
   print("\n")
   print("-----------------------------------------SYMBOLIZED QUERY---------------------------------------")
