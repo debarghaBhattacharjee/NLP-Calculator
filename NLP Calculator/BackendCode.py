@@ -99,8 +99,9 @@ def symbolizeQuery(numberedQuery):
         del symbolizedQuery[i]
     elif token[0] in ['-', 'minus']:
       if symbolizedQuery[i-1][1] != 'CD':
-        symbolizedQuery[i+1][0] = 0 - symbolizedQuery[i+1][0]
-        del symbolizedQuery[i]
+        if symbolizedQuery[i+1][0] == 'CD':
+          symbolizedQuery[i+1][0] = 0 - symbolizedQuery[i+1][0]
+          del symbolizedQuery[i]
   print("\n")
   print("-----------------------------------------SYMBOLIZED QUERY---------------------------------------")
   print(symbolizedQuery)
