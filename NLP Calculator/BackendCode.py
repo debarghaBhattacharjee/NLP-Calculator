@@ -28,7 +28,9 @@ def tokenizeQuery(query):
     elif token.text == 'point' or token.text == '.':
       tokenizedQuery.append(['point', 'CD'])
     elif token.text == ',':
-      tokenizedQuery.append(['and', 'CC'])	  
+      tokenizedQuery.append(['and', 'CC'])	 
+    elif token.text == '-':
+      tokenizedQuery.append(['-', 'SYM'])	  
     else:	
       tokenizedQuery.append([token.text, token.tag_])
   print("\n")
