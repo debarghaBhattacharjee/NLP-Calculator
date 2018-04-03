@@ -96,7 +96,6 @@ def symbolizeQuery(numberedQuery):
 	
 
   for i, token in enumerate(symbolizedQuery):
-    print(i, symbolizedQuery[i])
     if token[0] in markedConjunctions:
       if symbolizedQuery[i-1][0] in markedSymbols:
         del symbolizedQuery[i]
@@ -120,8 +119,8 @@ def modifySymbolizedQuery(symbolizedQuery):
   LB = 0
   RB = 0
   loop = 0
-  highOperator1 = '('
-  highOperator2 = '('
+  highOperator = '('
+  lastDiffOperator = '('
   for i, token in enumerate(symbolizedQuery):
     if token[1] == 'IN':
       flag = 1
@@ -130,7 +129,7 @@ def modifySymbolizedQuery(symbolizedQuery):
   if flag == 1:
     for i, token in enumerate(symbolizedQuery):
       if token[1] == '-RRB-':
-        highOperator1 = '('
+        highOperator = '('
         LB = LB - 1
       if token[1] == '-LRB-':
         LB = LB + 1
@@ -140,16 +139,16 @@ def modifySymbolizedQuery(symbolizedQuery):
         
         if (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'CD'):
           loop = loop + 1
-          if (highOperator2 =='(' and highOperator1== '(') or (selectedOperator != highOperator1):
-            if precedence[selectedOperator] > precedence[highOperator1]:
-              highOperator1 = selectedOperator
+          if (lastDiffOperator =='(' and highOperator== '(') or (selectedOperator != highOperator):
+            if precedence[selectedOperator] > precedence[highOperator]:
+              highOperator = selectedOperator
               mark = 1
             else:
-              highOperator2 = selectedOperator
-              if precedence[selectedOperator] < precedence[highOperator1]:
+              lastDiffOperator = selectedOperator
+              if precedence[selectedOperator] < precedence[highOperator]:
                 mark = 0
-              elif precedence[selectedOperator] == precedence[highOperator1]:
-                highOperator1 = selectedOperator
+              elif precedence[selectedOperator] == precedence[highOperator]:
+                highOperator = selectedOperator
                 mark = 1
 				
           if mark == 1:
@@ -160,16 +159,16 @@ def modifySymbolizedQuery(symbolizedQuery):
 		
 		  
         elif (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'SYM'):
-          if precedence[selectedOperator] > precedence[highOperator1]: 
-            highOperator1 = selectedOperator
+          if precedence[selectedOperator] >= precedence[highOperator]: 
+            highOperator = selectedOperator
             del symbolizedQuery[i]
             symbolizedQuery.insert(i-1, ['of', 'IN'])
             symbolizedQuery.insert(i-1, [selectedOperator,'SYM'])
             symbolizedQuery.insert(i+2, ['and','CC'])
 			
         elif (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == '-LRB-'):
-          if precedence[selectedOperator] > precedence[highOperator1]: 
-            highOperator1 = selectedOperator
+          if precedence[selectedOperator] > precedence[highOperator]: 
+            highOperator = selectedOperator
             del symbolizedQuery[i+1]
             del symbolizedQuery[i+1]
             symbolizedQuery.insert(i-1, ['of', 'IN'])
@@ -177,8 +176,8 @@ def modifySymbolizedQuery(symbolizedQuery):
             symbolizedQuery.insert(i+2, ['and','CC'])
 			
         elif (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'CC'):
-          if precedence[selectedOperator] > precedence[highOperator1]: 
-            highOperator1 = selectedOperator
+          if precedence[selectedOperator] > precedence[highOperator]: 
+            highOperator = selectedOperator
             del symbolizedQuery[i]
             symbolizedQuery.insert(i-1, ['of', 'IN'])
             symbolizedQuery.insert(i-1, [selectedOperator,'SYM'])
