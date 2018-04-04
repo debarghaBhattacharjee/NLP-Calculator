@@ -35,7 +35,7 @@ root.configure(background="#cfcfcf")
 root.resizable(0,0)
 
 def showResult():
-  userQuery = entryQuery.get()
+  userQuery = entryQuery.get().lower()
   try:
     finalResult = solveQuery(userQuery)
   except Exception as e:
