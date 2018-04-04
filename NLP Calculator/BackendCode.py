@@ -132,6 +132,9 @@ def modifySymbolizedQuery(symbolizedQuery):
       flag = 1
       if token[0] in swapConjunction:
         symbolizedQuery[i] = ['and', 'CC']
+
+		
+
   if flag == 1:
     for i, token in enumerate(symbolizedQuery):
       if token[1] == '-RRB-':
@@ -142,7 +145,11 @@ def modifySymbolizedQuery(symbolizedQuery):
       if symbolizedQuery[i][1] == 'SYM':
         mark = 0
         selectedOperator = symbolizedQuery[i][0]
-        
+		
+        if i == 0:
+          if precedence[selectedOperator] > precedence[highOperator]:
+            highOperator = selectedOperator
+		  
         if (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'CD'):
           loop = loop + 1
           if (lastDiffOperator =='(' and highOperator== '(') or (selectedOperator != highOperator):
@@ -191,6 +198,7 @@ def modifySymbolizedQuery(symbolizedQuery):
             symbolizedQuery.insert(i-1, [selectedOperator,'SYM'])
           else:
             del symbolizedQuery[i+1]
+
 			
     while LB > 0:
       symbolizedQuery.append([')', '-RRB'])
