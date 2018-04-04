@@ -156,6 +156,8 @@ def modifySymbolizedQuery(symbolizedQuery):
               elif precedence[selectedOperator] == precedence[highOperator]:
                 highOperator = selectedOperator
                 mark = 1
+          else:
+            mark = 1
 				
           if mark == 1:
             del symbolizedQuery[i]
