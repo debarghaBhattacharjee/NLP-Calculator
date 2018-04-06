@@ -135,6 +135,13 @@ def modifySymbolizedQuery(symbolizedQuery):
       if token[0] in swapConjunction:
         symbolizedQuery[i] = ['and', 'CC']
 
+  for i, token in enumerate(symbolizedQuery):	#this removes extra 'and', ','	
+    if token[1] == 'CC':
+      print(symbolizedQuery[i-1],symbolizedQuery[i],symbolizedQuery[i+1])
+      if i == 1 or (symbolizedQuery[i-1][1] in stopWordsTags and symbolizedQuery[i+1][1] in stopWordsTags):
+        del symbolizedQuery[i]	  
+      
+
 		
 
   if flag == 1:
