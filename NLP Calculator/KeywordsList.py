@@ -15,6 +15,10 @@ markedVerbs['add'] = 'addition'
 markedVerbs['subtract'] = 'subtraction'
 markedVerbs['multiply'] = 'multiplication'
 markedVerbs['divide'] = 'division'
+markedVerbs['adding'] = 'addition'
+markedVerbs['subtracting'] = 'subtraction'
+markedVerbs['multiplying'] = 'multiplication'
+markedVerbs['dividing'] = 'division'
 
 markedConjunctions = ['by', 'to']
 markedSymbols = ['/','*']

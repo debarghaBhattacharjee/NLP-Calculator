@@ -33,6 +33,8 @@ def tokenizeQuery(query):
       tokenizedQuery.append(['minus', 'NN'])	  
     elif token.text == '-':
       tokenizedQuery.append(['-', 'SYM'])
+    elif token.text == 'after':
+      pass
     elif token.text == 'with':
       tokenizedQuery.append(['by', 'IN'])	  
     else:	
