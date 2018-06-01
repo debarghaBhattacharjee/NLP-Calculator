@@ -46,10 +46,10 @@ def showResult():
   else:
     textResult.configure(state=NORMAL)
     textResult.delete("1.0", END)
-    textResult.insert(INSERT,finalResult)
+    textResult.insert(INSERT,(finalResult[1] + " = " + str(finalResult[0])))
     textResult.configure(state=DISABLED)
     if mode == 1:
-      testData = "\n" + userQuery + "    " + str(finalResult)
+      testData = "\n" + userQuery + "    " + str(finalResult[0])
       addData(testData)
   
 def resetCalculator():

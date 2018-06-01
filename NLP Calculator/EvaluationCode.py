@@ -53,10 +53,7 @@ def applyOperator(list):
         token = topOperator
       else:
         if currentState == 1:
-          if topOperator != ['/', 'SYM']:
-            token = topOperator
-          else:
-            token = ['+', 'SYM']		  
+            token = topOperator#previously token = ['+', 'SYM'] if topOperator wasn't ['/', 'SYM'], else: token = topOperator		  
         elif currentState == 2:
           token = ['+', 'SYM']
     if token[1] != '$':
@@ -227,27 +224,34 @@ def evaluatePostfix(list):
   operandStack = Stack()
   operand1 = 0
   operand2 = 0
+  expression = str()
   result = 0
   for token in list:
     if not token in ['*', '/', '+', '-', '--']:
-      operandStack.push(token)
+      operandStack.push([token, str(token)])
     else:
       operand2 = operandStack.pop()
       operand1 = operandStack.pop()
 		
       if token == '*':
-        result = operand1 * operand2
+        expression = "( " + operand1[1] + " * " + operand2[1] + " ) "
+        result = operand1[0] * operand2[0]
       elif token == '/':
-        result = operand1 / operand2
+        expression = "( " + operand1[1] + " / " + operand2[1] + " ) "
+        result = operand1[0] / operand2[0]
       elif token == '+':
-        result = operand1 + operand2
+        expression = "( " + operand1[1] + " + " + operand2[1] + " ) "
+        result = operand1[0] + operand2[0]
       elif token == '-':
-        result = operand1 - operand2
+        expression = "( " + operand1[1] + " - " + operand2[1] + " ) "
+        result = operand1[0] - operand2[0]
       elif token == '--':
-        result = operand2 - operand1
-      operandStack.push(result)
+        expression = "( " + operand2[1] + " - " + operand1[1] + " ) "
+        result = operand2[0] - operand1[0]
+      operandStack.push([result, expression])
   
   result = operandStack.pop()
+  
   
   print("\n")
   print("-------------------------------------------RESULT-----------------------------------------------")
