@@ -35,8 +35,16 @@ def tokenizeQuery(query):
       tokenizedQuery.append(['-', 'SYM'])
     elif token.text == 'after':
       pass
+    elif token.text == ' ':
+      pass
     elif token.text == 'with':
-      tokenizedQuery.append(['by', 'IN'])	  
+      tokenizedQuery.append(['by', 'IN'])	 
+    elif token.tag_ == 'TO':
+      tokenizedQuery.append([token.text, 'IN'])	  	  
+    elif token.tag_ == ":":
+      if token.text[0] == '-' and token.text[1].isdigit():
+        tokenizedQuery.append(['minus', 'NN'])
+        tokenizedQuery.append([token.text[1:], 'CD'])	
     else:	
       tokenizedQuery.append([token.text, token.tag_])
   print("\n")
@@ -49,8 +57,14 @@ def numberQuery(tokenizedQuery):
   numberedQuery = []
   currentNumber = str()
   countNumber = 0
-  
+  flag = 0
   for i, token in enumerate(tokenizedQuery):
+    if token[1] == 'CD':
+      flag = 1
+    if token[0] == 'and':
+      if flag == 0:
+        del tokenizedQuery[i]
+		
     if token[0] == 'point':
       if not set(numbers).isdisjoint(set(tokenizedQuery[i-1][0])):
         tokenizedQuery[i-1][0] = num2words(w2n.word_to_num(tokenizedQuery[i-1][0]))
@@ -154,10 +168,6 @@ def modifySymbolizedQuery(symbolizedQuery):
       if symbolizedQuery[i][1] == 'SYM':
         mark = 0
         selectedOperator = symbolizedQuery[i][0]
-		
-        if i == 0:
-          if precedence[selectedOperator] > precedence[highOperator]:
-            highOperator = selectedOperator
 		  
         if (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'CD'):
           loop = loop + 1

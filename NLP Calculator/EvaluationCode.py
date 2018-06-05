@@ -140,6 +140,7 @@ def createExpression(list):
 
   
 def applyBracket(list):
+  ctr = 0
   LB = 0
   RB = 0
   currentState = 1

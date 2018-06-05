@@ -26,7 +26,7 @@ markedSymbols = ['/','*']
 swapConjunction = ['by', 'to', 'from']
 
 stopWordsTags = ['NN', 'VB', 'VBN', 'VBG', 'JJ', 'NNS', 'VBP', 'DT', 'WP', 'VBZ', 'WRB', 'PRP', 'UH', 'RB'] 
-stopWordsSymbols = ['&', '?', '#', '$', '@', '%', '^', '_', '=', ' ']
+stopWordsSymbols = ['&', '?', '#', '$', '@', '%', '^', '_', '=', ' ',  '!', '"', '\t']
 
 precedence = {}
 precedence['*'] = 3
