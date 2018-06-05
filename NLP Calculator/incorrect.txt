@@ -1,9 +1,0 @@
-
-sum of 1 and 4 * ( product of 3 and ( sum of 4 and one ) )    15
-3 times 2 plus 5 divided by 5 + 7    9.2
-3 times 2 plus 5 divided by 5 + 7    9.2
-sum of 3 times 2 and 5 divided by 5 and 7    0.31428571428571433
-sum of 3 times 2 and 5 divided by 5 and 7    0.31428571428571433
-sum of 1 and 4 * ( product of 3 and ( sum of 4 and one ) )    15
-sum of 1 and 4 * ( product of 3 and ( sum of 4 and one ) )    15
-3 times 2 plus 5 divided by 5 + 7    9.2
