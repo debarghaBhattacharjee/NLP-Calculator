@@ -124,6 +124,9 @@ def createExpression(list):
     initialList = []
     for token in list:
       initialList.append(token[0])
+    for i, token in enumerate(initialList):
+      if initialList[i] == 'and':
+        initialList[i] = '+'
     print(initialList)
     print("------------------------------------------------------------------------------------------------") 
 	

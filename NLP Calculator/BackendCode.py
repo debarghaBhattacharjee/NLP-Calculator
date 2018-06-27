@@ -168,6 +168,10 @@ def modifySymbolizedQuery(symbolizedQuery):
       if symbolizedQuery[i][1] == 'SYM':
         mark = 0
         selectedOperator = symbolizedQuery[i][0]
+		
+        if i == 0:
+          if precedence[selectedOperator] > precedence[highOperator]:
+            highOperator = selectedOperator
 		  
         if (symbolizedQuery[i-1][1] == 'CD') and (symbolizedQuery[i+1][1] == 'CD'):
           loop = loop + 1
